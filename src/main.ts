@@ -12,4 +12,8 @@ gaman.serv({
     staticGaman(),
   ],
   blocks: [mainBlock],
+  server: {
+    host: '0.0.0.0',
+    port: 3521
+  }
 });
