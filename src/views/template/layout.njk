@@ -3,27 +3,42 @@
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{ title | default('Gaman') }}</title>
-    <link rel="shortcut icon" href="/img/gaman-big.png" type="image/x-icon"/>
-    <link rel="stylesheet" href="/style/app.css">
 
+    <title>{{ title | default('Gaman') }}</title>
+    <meta name="description" content={{ description | default('GamanJS is a fast, modular backend framework built for simplicity and efficiency. Build powerful APIs with ease using tree-based routing and block structure.') }}/>
+    <meta name="keywords" content="GamanJS, backend framework, Node.js, TypeScript, modular API, routing, block-based, server framework"/>
+    <meta name="author" content="7TogkID"/>
+    <link rel="canonical" href="https://gaman.7togk.id"/>
+
+    <!-- Open Graph (Facebook, LinkedIn, Discord, etc) -->
+    <meta property="og:title" content="GamanJS — Simple Modular Backend Framework"/>
+    <meta property="og:description" content="Build efficient and modular server-side applications with GamanJS."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://gaman.7togk.id"/>
+    <meta property="og:image" content="https://gaman.7togk.id/img/gaman-big.png"/>
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="GamanJS — Simple Modular Backend Framework"/>
+    <meta name="twitter:description" content="Build efficient and modular server-side applications with GamanJS."/>
+    <meta name="twitter:image" content="https://gaman.7togk.id/img/gaman-big.png"/>
+    <meta name="twitter:creator" content="@7TogkID"/>
+
+    <link rel="shortcut icon" href="/img/gaman-big.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="/style/app.css"/>
     <link rel="stylesheet" href="/style/aos.css"/>
+
     <!-- Tailwind 4 CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
 
     <!-- Font Awesome -->
-    <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-    <!-- Pilih tema highlight.js -->
-    <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
-/>
+    <!-- Highlight.js theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
   </head>
+
   <body
     class="bg-neutral-900 text-gray-200 m-0 p-0"
   >

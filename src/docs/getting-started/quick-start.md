@@ -1,5 +1,5 @@
 # Quick Start
-
+GamanJS is a modular and efficient backend framework designed for simplicity and performance. Follow the steps below to quickly get started with your first GamanJS project.
 ## Create a New Project
 
 There are two ways to scaffold a new GamanJS project:

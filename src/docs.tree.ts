@@ -5,9 +5,12 @@ import { marked } from "marked";
 const links = [
   {
     name: "Getting Started",
+
     items: [
       {
         name: "Quick Start",
+        description:
+          "GamanJS is a modular and efficient backend framework designed for simplicity and performance. Follow the steps below to quickly get started with your first GamanJS project.",
         href: "getting-started/quick-start",
       },
     ],
@@ -17,26 +20,38 @@ const links = [
     items: [
       {
         name: "Block",
+        description:
+          "Blocks are designed to simplify the development process by consolidating routing.",
         href: "guides/block",
       },
       {
         name: "Children",
+        description:
+          "Block Children are an advanced feature in GamanJS that allow you to organize routing hierarchically within a parent Block. Using the `childrens` property, you can embed additional sub-Blocks that operate only within the context of the main Block.",
         href: "guides/block-children",
       },
       {
         name: "Routing",
+        description:
+          "The GamanJS routing system is designed to be flexible and intuitive, using a tree-like structure to represent routes.",
         href: "guides/routing",
       },
       {
         name: "Tree",
+        description:
+          "The GamanJS routing system is designed to be flexible and intuitive, using a tree-like structure to represent routes.",
         href: "guides/tree",
       },
       {
         name: "Middleware",
+        description:
+          "Middleware in GamanJS provides a powerful way to process requests before they reach the route handler.",
         href: "guides/middleware",
       },
       {
         name: "Websocket",
+        description:
+          "The WebSocket for GamanJS provides an easy-to-use interface for handling WebSocket connections.",
         href: "guides/websocket",
       },
     ],
@@ -46,14 +61,20 @@ const links = [
     items: [
       {
         name: "Cookies",
+        description:
+          "GamanJS provides a simple and expressive API to manage HTTP cookies. Using the `ctx.cookies` object, you can easily **set**, **get**, **check**, and **delete** cookies in your routes and middlewares.",
         href: "helpers/cookies",
       },
       {
         name: "Locals",
+        description:
+          "GamanJS provides a simple `ctx.locals` object to store and pass data between middlewares and route handlers during a single request lifecycle.",
         href: "helpers/locals",
       },
       {
         name: "Logger",
+        description:
+          "The `Logger` utility offers an easy-to-use interface for logging messages at different levels of severity.",
         href: "helpers/logger",
       },
     ],
@@ -63,14 +84,20 @@ const links = [
     items: [
       {
         name: "CORS",
+        description:
+          "CORS Middleware for Gaman. Implements Cross-Origin Resource Sharing (CORS) with customizable options.",
         href: "packages/cors",
       },
       {
         name: "Basic-Auth",
+        description:
+          "Basic Authentication Middleware for Gaman. Provides secure HTTP Basic Authentication with flexible configuration options.",
         href: "packages/basic-auth",
       },
       {
         name: "Static",
+        description:
+          "Serve static files easily with GamanJS integration for static assets.",
         href: "packages/static",
       },
     ],
@@ -80,10 +107,14 @@ const links = [
     items: [
       {
         name: "Nunjucks",
+        description:
+          "GamanJS supports multiple view engines for server-side rendering (SSR). One of the default supported engines is **Nunjucks** — a powerful templating language for HTML.",
         href: "view-engine/nunjucks",
       },
       {
         name: "EJS",
+        description:
+          "GamanJS also supports **EJS (Embedded JavaScript Templates)** as one of its view engines for server-side rendering. EJS is known for its simplicity and compatibility with regular HTML.",
         href: "view-engine/ejs",
       },
     ],
@@ -112,6 +143,7 @@ export default defineTree({
 
       return Response.render("template/docs-layout", {
         title: item.name,
+        description: item.description,
         item,
         link,
         docs: html,
