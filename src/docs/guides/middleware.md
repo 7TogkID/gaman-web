@@ -17,13 +17,13 @@ Global middleware is defined using the `all` property in a Block. It applies to 
 #### Example:
 
 ```ts
-import { defineBlock, Response, Logger } from "gaman";
+import { defineBlock, Response, Logger, next } from "gaman";
 
 export default defineBlock({
   path: "/user",
   all: (ctx) => {
     Logger.log("Global middleware triggered");
-    // Do not return a response to allow the request to proceed to the next handler.
+    return next();
   },
   routes: {
     "/info": (ctx) => {
