@@ -1,0 +1,20 @@
+{
+  "name": "gaman-web",
+  "version": "0.0.1",
+  "main": "dist/src/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "gaman dev --exec tsx"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@gaman/nunjucks": "^0.0.2",
+    "@gaman/static": "^0.0.8",
+    "gaman": "^0.0.38",
+    "highlight.js": "^11.11.1",
+    "marked": "^16.0.0"
+  }
+}

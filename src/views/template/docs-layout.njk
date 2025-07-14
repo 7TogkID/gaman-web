@@ -1,0 +1,64 @@
+{% extends "template/layout.njk" %}
+
+{% block content %}
+  <div class="flex min-h-screen w-full relative">
+    <!-- Sidebar -->
+    <aside class="w-64 px-6 py-8 pt-24 bg-neutral-900 border-r border-white/10 sticky top-0 h-screen overflow-y-auto hidden md:block">
+      <nav class="space-y-6 font-medium text-gray-300">
+        {% for link in links %}
+          <div>
+            <h3 class="uppercase text-xs tracking-widest text-gray-500 mb-2">{{ link.name }}</h3>
+            <ul class="space-y-1.5 ms-2">
+              {% for item in link.items %}
+                {% set isActive = currentPath == item.href %}
+                <li>
+                  {% if isActive %}
+                    <a
+                href="/docs/{{ item.href }}"
+                class="block hover:text-purple-400 text-purple-400 font-semibold"
+              >
+                      {{ item.name }}
+                    </a>
+                  {% else %}
+                    <a
+                href="/docs/{{ item.href }}"
+                class="block hover:text-purple-400"
+              >
+                      {{ item.name }}
+                    </a>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 px-4 md:px-12 py-8 prose prose-invert pt-24 min-w-[60vw]">
+      {{ docs | safe }}
+
+      <div class="flex justify-between items-center border-t border-white/10 pt-8 mt-16">
+        {% if prev %}
+          <a href="/docs/{{ prev.href }}" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white">
+            <i class="fa fa-arrow-left"></i>
+            {{ prev.name }}
+          </a>
+        {% else %}
+          <div></div>
+        {% endif %}
+
+        {% if next %}
+          <a href="/docs/{{ next.href }}" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white">
+            {{ next.name }}
+            <i class="fa fa-arrow-right"></i>
+          </a>
+        {% else %}
+          <div></div>
+        {% endif %}
+      </div>
+
+    </main>
+  </div>
+{% endblock %}
