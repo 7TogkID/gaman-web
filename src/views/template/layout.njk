@@ -111,7 +111,6 @@
   <script>
     hljs.highlightAll();
 
-    // Tambahkan tombol paste
     document
       .querySelectorAll("pre")
       .forEach((pre) => {
@@ -124,14 +123,14 @@
           if (!code) 
             return;
           
-          // Salin isi code
+  
           navigator
             .clipboard
             .writeText(code.innerText)
             .then(() => {
-              button.innerHTML = `<i class="fa-solid fa-check"></i> Pasted!`;
+              button.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
               setTimeout(() => {
-                button.innerHTML = `<i class="fa-regular fa-paste"></i> Paste`;
+                button.innerHTML = `<i class="fa-regular fa-paste"></i> Copy`;
               }, 1500);
             });
         });
