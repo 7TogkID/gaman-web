@@ -1,4 +1,4 @@
-import mainBlock from "main.block";
+import mainBlock from "./main.block";
 import gaman from "gaman";
 import { staticGaman } from "@gaman/static";
 import nunjucks from "@gaman/nunjucks";

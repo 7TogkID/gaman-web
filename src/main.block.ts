@@ -1,4 +1,4 @@
-import docsTree from "docs.tree";
+import docsTree from "./docs.tree";
 import { defineBlock, Response } from "gaman";
 
 export default defineBlock({
