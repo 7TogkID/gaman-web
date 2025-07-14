@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>{{ title | default('Gaman') }}</title>
-    <meta name="description" content={{ description | default('GamanJS is a fast, modular backend framework built for simplicity and efficiency. Build powerful APIs with ease using tree-based routing and block structure.') }}/>
+    <meta name="description" content="{{ description | default('GamanJS is a fast, modular backend framework built for simplicity and efficiency. Build powerful APIs with ease using tree-based routing and block structure.') }}"/>
     <meta name="keywords" content="GamanJS, backend framework, Node.js, TypeScript, modular API, routing, block-based, server framework"/>
     <meta name="author" content="7TogkID"/>
     <link rel="canonical" href="https://gaman.7togk.id"/>
@@ -94,11 +94,13 @@
 
     {% block content %}{% endblock %}
 
-    <footer class="w-full bg-neutral-950 border-t border-neutral-800 text-center text-sm text-gray-400 py-6 z-10 relative mt-12">
-      <p>
+    {% if footer | default(true) %}
+      <footer class="w-full bg-neutral-950 border-t border-neutral-800 text-center text-sm text-gray-400 py-6 z-10 relative mt-12">
+        <p>
     &copy; 2025 7TogkID — Made with ❤️ in Indonesia
   </p>
-    </footer>
+      </footer>
+    {% endif %}
 
   </body>
   <script src="/js/aos.js"></script>

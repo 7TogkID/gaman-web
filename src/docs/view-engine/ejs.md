@@ -4,7 +4,7 @@ GamanJS also supports **EJS (Embedded JavaScript Templates)** as one of its view
 
 ---
 
-## 📦 Installation
+## Installation
 
 To use EJS with GamanJS, install the integration package:
 
@@ -14,7 +14,7 @@ npm install @gaman/ejs
 
 ---
 
-## ⚙️ Integration
+## Integration
 
 Integrate the EJS view engine in your `main.ts`:
 
@@ -34,7 +34,7 @@ gaman.serv({
 });
 ```
 
-### 🔧 Custom View Directory
+### Custom View Directory
 
 By default, views are loaded from `src/views`. To customize the view root directory:
 
@@ -46,7 +46,7 @@ ejs({
 
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```sh
 src/
@@ -70,7 +70,7 @@ src/
 
 ---
 
-## 🧩 Rendering a View
+## Rendering a View
 
 Inside a Block, render views using `Response.render()`:
 
@@ -91,7 +91,7 @@ This will render the `src/views/index.ejs` file with the provided `title` variab
 
 ---
 
-## ✅ Summary
+## Summary
 
 - EJS is supported via `@gaman/ejs`.
 - Views are located in `src/views` by default.
