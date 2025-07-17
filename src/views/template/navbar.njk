@@ -1,0 +1,100 @@
+<header class="fixed top-0 left-0 w-full z-20 bg-neutral-900/30 backdrop-blur-sm border-b border-pink-500">
+  <div class="mx-auto px-4 md:px-10 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-4">
+      <div class="flex items-center">
+        <img src="/img/gaman.png" alt="logo" class="h-14" />
+        <span class="orbitron-600 text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Gaman.js</span>
+      </div>
+      <span class="items-center px-1.5 py-1 gap-1 bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 text-transparent ring-1 ring-inset ring-pink-500/50 -mb-[2px] rounded font-semibold text-[12px]/3">v0.0.40</span>
+    </a>
+
+    <div class="flex items-center gap-4 md:hidden">
+      <button id="mobile-search" class="text-white text-2xl">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+
+      <!-- Hamburger -->
+      <button id="hamburger" class="relative w-8 h-6 flex flex-col justify-between items-center">
+        <span class="block w-full h-[3px] bg-white transition-all duration-300 ease-in-out"></span>
+        <span class="block w-full h-[3px] bg-white transition-all duration-300 ease-in-out"></span>
+        <span class="block w-full h-[3px] bg-white transition-all duration-300 ease-in-out"></span>
+      </button>
+    </div>
+
+    <!-- Desktop -->
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-400">
+      <template id="nav-links"></template>
+      <div class="relative flex items-center">
+        <input type="text" id="search-input" placeholder="Search documentation..." class="bg-neutral-700 text-sm text-white px-2 py-1.5 rounded-md placeholder:text-gray-400 w-56" />
+        <kbd class="absolute right-1.5 top-1 bg-zinc-900 border border-gray-600 py-1 px-1.5 text-xs rounded-md text-gray-400">CTRL+K</kbd>
+      </div>
+      <a href="https://github.com/7TogkID/gaman" target="_blank" class="bg-gray-300 text-black text-sm font-semibold px-3 py-1.5 rounded-md flex items-center gap-2"> <i class="fa-brands fa-github"></i><span>GitHub</span> </a>
+    </nav>
+  </div>
+
+  <!-- Mobile-->
+  <nav id="nav-menu" class="hidden md:hidden flex-col gap-4 bg-neutral-900 px-6 py-4 text-sm text-gray-400">
+    <div id="mobile-navbar" class="flex flex-col gap-4"></div>
+  </nav>
+</header>
+
+<script>
+  const navItems = [
+    { href: "/", label: "Home", icon: "fa-house" },
+    { href: "/docs", label: "Docs", icon: "fa-book" },
+    { href: "/blog", label: "Blog", icon: "fa-pen-nib" },
+    { href: "/guide", label: "Guide", icon: "fa-compass-drafting" },
+    { href: "/support", label: "Support", icon: "fa-circle-question" },
+  ];
+
+  const pathname = window.location.pathname;
+  const navTemplate = document.getElementById("nav-links");
+  const mobileNav = document.getElementById("mobile-navbar");
+
+  navItems.forEach((item) => {
+    const isActive = pathname === item.href ? "text-white" : "hover:text-white";
+
+    // Desktop
+    const a = document.createElement("a");
+    a.href = item.href;
+    a.className = `${isActive}`;
+    a.textContent = item.label;
+    navTemplate.parentElement.insertBefore(a, navTemplate);
+
+    // Mobile
+    const mobileAnchor = document.createElement("a");
+    mobileAnchor.href = item.href;
+    mobileAnchor.className = `${isActive} flex items-center`;
+    mobileAnchor.innerHTML = `<i class="fa-solid ${item.icon} mr-2"></i>${item.label}`;
+    mobileNav.appendChild(mobileAnchor);
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById("hamburger");
+  const navMenu = document.getElementById("nav-menu");
+
+  hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("hidden");
+    hamburger.classList.toggle("open");
+
+    const [bar1, bar2, bar3] = hamburger.querySelectorAll("span");
+
+    if (hamburger.classList.contains("open")) {
+      bar1.classList.add("rotate-45", "translate-y-[10px]");
+      bar2.classList.add("opacity-0");
+      bar3.classList.add("-rotate-45", "-translate-y-[10px]");
+    } else {
+      bar1.classList.remove("rotate-45", "translate-y-[10px]");
+      bar2.classList.remove("opacity-0");
+      bar3.classList.remove("-rotate-45", "-translate-y-[10px]");
+    }
+  });
+
+  // CTRL+K Shortcut
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      document.getElementById("search-input")?.focus();
+    }
+  });
+</script>
