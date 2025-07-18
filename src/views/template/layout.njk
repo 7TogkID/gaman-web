@@ -42,65 +42,31 @@
   <body
     class="bg-neutral-900 text-gray-200 m-0 p-0"
   >
-    <div class="fixed top-0 left-0 w-full h-full z-0">
+    <div class="fixed top-16 left-0 w-full h-full z-0">
       <img src="/img/pattern.png" alt="" class="w-full h-full object-cover object-center"/>
       <div class="absolute top-0 left-0 w-full h-full after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-t after:to-transparent after:via-neutral-900/50 after:from-neutral-900 after:from-5%"></div>
-
       {# Kiri bawah ke kanan atas #}
       <div class="absolute top-0 left-0 w-full h-full after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-tr after:from-neutral-900 after:from-10% after:to-transparent "></div>
       {# Kanan bawah ke kiri atas #}
       <div class="absolute top-0 left-0 w-full h-full after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-tl after:from-neutral-900 after:from-10% after:to-transparent "></div>
     </div>
 
-    <header class="fixed z-20 top-0 left-0 h-24 w-full bg-transparent ">
-      <div class=" mx-auto w-full h-full flex items-center justify-between px-4">
-        <!-- Logo -->
-        <a href="/" class="h-full flex items-center gap-2">
-          <img src="/img/gaman.png" alt="logo" class="h-14"/>
-          <div
-        class="hidden md:block orbitron-600 text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500"
-      >
-        GamanJS
-      </div>
-        </a>
+    {# Navbar #}
+    {% include "template/navbar.njk" %}
 
-        <!-- Navigation -->
-        <nav class="flex items-center gap-4 text-sm font-semibold">
-          <a href="/" class="hover:text-purple-400 flex items-center gap-1">
-            <i class="fa-solid fa-house"></i>
-
-            <span class="hidden md:block">Home</span>
-          </a>
-          <a href="/docs" class="hover:text-purple-400 flex items-center gap-1">
-            <i class="fa-solid fa-book"></i>
-
-            <span class="hidden md:block">Docs</span>
-          </a>
-          <a href="https://github.com/7TogkID/gaman" target="_blank" class="hover:text-purple-400 flex items-center gap-1">
-            <i class="fa-brands fa-github"></i>
-            <span class="hidden md:block">GitHub</span>
-          </a>
-          <!-- Dark Mode Toggle -->
-          {# <button
-        id="toggle-theme"
-        class="hover:text-purple-400 flex items-center gap-1 focus:outline-none"
-      >
-            <i id="theme-icon" class="fa-solid fa-moon"></i>
-        Theme
-      </button> #}
-        </nav>
-      </div>
-    </header>
-
+    {# Hero Content #}
     {% block content %}{% endblock %}
 
-    {% if footer | default(true) %}
+    {# Footer #}
+    {% include "template/footer.njk"%}
+
+    {# {% if footer | default(true) %}
       <footer class="w-full bg-neutral-950 border-t border-neutral-800 text-center text-sm text-gray-400 py-6 z-10 relative mt-12">
         <p>
     &copy; 2025 7TogkID — Made with ❤️ in Indonesia
   </p>
       </footer>
-    {% endif %}
+    {% endif %} #}
 
   </body>
   <script src="/js/aos.js"></script>

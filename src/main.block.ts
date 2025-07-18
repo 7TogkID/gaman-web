@@ -8,6 +8,7 @@ export default defineBlock({
     "/": () => {
       return Response.render("index", {
         title: "GamanJS | Web Application Framework",
+        year: new Date().getFullYear(),
       });
     },
   },
