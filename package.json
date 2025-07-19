@@ -4,7 +4,9 @@
   "main": "dist/src/main.js",
   "type": "module",
   "scripts": {
-    "dev": "gaman dev --exec tsx"
+    "dev": "gaman dev",
+    "build": "gaman build",
+    "start": "gaman start"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,5 @@
     "highlight.js": "^11.11.1",
     "marked": "^16.0.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
