@@ -4,7 +4,11 @@
   "main": "dist/src/main.js",
   "type": "module",
   "scripts": {
+<<<<<<< HEAD
     "dev": "gaman dev --exec tsx",
+=======
+    "dev": "gaman dev",
+>>>>>>> aaeed3cf680dc1f83b18c4aeece14d8a976e0094
     "build": "gaman build",
     "start": "gaman start"
   },
@@ -13,14 +17,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@gaman/nunjucks": "^0.0.2",
-    "@gaman/static": "^0.0.8",
     "chokidar": "^3.6.0",
     "fast-glob": "^3.3.3",
-    "gaman": "^0.0.40",
+    "gaman": "^0.0.47",
     "highlight.js": "^11.11.1",
     "marked": "^16.0.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
