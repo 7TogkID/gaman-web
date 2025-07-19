@@ -4,11 +4,7 @@
   "main": "dist/src/main.js",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
-    "dev": "gaman dev --exec tsx",
-=======
     "dev": "gaman dev",
->>>>>>> aaeed3cf680dc1f83b18c4aeece14d8a976e0094
     "build": "gaman build",
     "start": "gaman start"
   },
