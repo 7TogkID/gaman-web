@@ -4,7 +4,9 @@
   "main": "dist/src/main.js",
   "type": "module",
   "scripts": {
-    "dev": "gaman dev --exec tsx"
+    "dev": "gaman dev --exec tsx",
+    "build": "gaman build",
+    "start": "gaman start"
   },
   "keywords": [],
   "author": "",
