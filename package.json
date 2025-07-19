@@ -13,11 +13,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@gaman/nunjucks": "^0.0.2",
-    "@gaman/static": "^0.0.8",
     "chokidar": "^3.6.0",
     "fast-glob": "^3.3.3",
-    "gaman": "^0.0.40",
+    "gaman": "^0.0.47",
     "highlight.js": "^11.11.1",
     "marked": "^16.0.0"
   },
