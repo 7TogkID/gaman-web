@@ -36,6 +36,14 @@ Logs debug messages intended for development or troubleshooting purposes.
 Logger.debug("Debugging connection parameters: { host: 'localhost', port: 3431 }");
 ```
 
+### `Logger.warn(message: string)`
+
+Logs warning messages to signal potential problems or caution.
+
+```ts
+Logger.warn("Disk usage is nearing capacity.");
+```
+
 ### `Logger.error(message: string)`
 
 Logs error messages, useful for reporting issues or exceptions.
@@ -75,6 +83,7 @@ try {
 * Use `Logger.info` for high-level updates and progress.
 * Use `Logger.log` for normal operations and tracking.
 * Use `Logger.debug` during development to trace issues or inspect application behavior.
+* Use `Logger.warn` for important warnings or risks that aren't critical errors.
 * Use `Logger.error` for critical failures or exceptions.
 
 ---

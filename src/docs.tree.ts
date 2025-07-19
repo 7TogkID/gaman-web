@@ -77,6 +77,12 @@ const links = [
           "The `Logger` utility offers an easy-to-use interface for logging messages at different levels of severity.",
         href: "helpers/logger",
       },
+      {
+        name: "TextFormat",
+        description:
+          "The TextFormat utility provides ANSI escape codes for styling terminal output, such as applying colors, bold, italic, underline, and other text effects. It also includes a format() method for applying styles using Minecraft-style formatting codes.",
+        href: "helpers/textformat",
+      },
     ],
   },
   {
@@ -117,6 +123,17 @@ const links = [
           "GamanJS also supports **EJS (Embedded JavaScript Templates)** as one of its view engines for server-side rendering. EJS is known for its simplicity and compatibility with regular HTML.",
         href: "view-engine/ejs",
       },
+    ],
+  },
+  {
+    name: "API",
+    items: [
+      {
+        name: "Integration",
+        description:
+          "The Integration API allows you to extend your application's functionality through a modular integration system. Each integration follows a lifecycle pattern with hooks for different stages of the application's execution.",
+        href: "api/integration",
+      }
     ],
   },
 ];

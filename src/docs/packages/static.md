@@ -1,130 +1,58 @@
-# Static
+# Static File Integration
 
-Serve static files easily with GamanJS integration for static assets.
+`gamanStatic` is a middleware to serve static files such as images, JavaScript, CSS, or even HTML from a specified directory (default: `public/`). This middleware is ideal for both SPA and general web server needs.
+
+---
 
 ## Features
 
-- Serve static files like HTML, CSS, JavaScript, images, and more.
-- Customizable static file directory.
-- Supports additional MIME type mappings.
-
----
-
-## Installation
-
-Install the package using your favorite package manager:
-
-```bash
-npm install @gaman/static
-```
-
----
-
-## Usage
-
-### 1. **Initialize Integration**
-
-Configure the static file integration in your `main.ts` file:
-
-```ts
-import gaman from "gaman";
-import { staticGaman } from "@gaman/static";
-import blocks from "./blocks";
-
-gaman.serv({
-  integrations: [
-    staticGaman({
-      path: "custom", // Default is 'public'
-      newMimeTypes: { ".webp": "image/webp" },
-    }),
-  ],
-  blocks: [blocks],
-});
-```
-
----
-
-### 2. **Organize Static Files**
-
-Place your static files in the `public` directory (or your custom directory if configured).
-
-Example structure:
-
-```plaintext
-project-root/
-├── public/
-│   ├── index.html
-│   ├── styles.css
-│   ├── script.js
-│   └── images/
-│       └── logo.png
-└── src/
-    ├── blocks/
-    │   └── main.block.ts
-    └── main.ts
-```
-
----
-
-### 3. **Access Static Files**
-
-Once the integration is configured, you can access static files directly by their relative path.
-
-For example:
-
-- `http://localhost:3000/index.html`
-- `http://localhost:3000/styles.css`
-- `http://localhost:3000/images/logo.png`
+- Auto-detects MIME types (customizable)
+- Supports automatic Gzip and Brotli compression
+- Supports ETag and caching via `Cache-Control`
+- Fallback to `index.html` for SPAs
+- Supports path rewriting and hooks for found/not-found files
 
 ---
 
 ## Options
 
-| Option         | Type                     | Description                               | Default  |
-| -------------- | ------------------------ | ----------------------------------------- | -------- |
-| `path`         | `string`                 | Directory to serve static files from.     | `public` |
-| `newMimeTypes` | `Record<string, string>` | Additional MIME type mappings.            | `{}`     |
-| `priority`     | `Priority`               | Priority for this integration in GamanJS. | `low`    |
+| Option                | Type                                                    | Default                  | Description                                                       |
+| --------------------- | ------------------------------------------------------- | ------------------------ | ----------------------------------------------------------------- |
+| `path`                | `string`                                                | `"public"`               | Root directory for static files                                   |
+| `mimes`               | `Record<string, string>`                                | -                        | Custom MIME types based on file extensions                        |
+| `priority`            | `Priority`                                              | `"very-high"`            | Middleware execution order                                        |
+| `defaultDocument`     | `string`                                                | `"index.html"`           | Default file to serve when a directory is requested               |
+| `rewriteRequestPath`  | `(path: string) => string`                              | -                        | Function to transform request path before file resolution         |
+| `onFound`             | `(path: string, ctx: Context) => void \| Promise<void>` | -                        | Callback when file is found and sent                              |
+| `onNotFound`          | `(path: string, ctx: Context) => void \| Promise<void>` | -                        | Callback when file is not found                                   |
+| `cacheControl`        | `string`                                                | `"public, max-age=3600"` | `Cache-Control` header                                            |
+| `fallbackToIndexHTML` | `boolean`                                               | `false`                  | Fallback to `index.html` when file is not found (useful for SPAs) |
 
 ---
 
-## Adding MIME Types
-
-Extend MIME type support by specifying additional mappings:
+## 🧪 Example
 
 ```ts
-staticGaman({
-  newMimeTypes: {
-    ".webp": "image/webp",
-    ".mkv": "video/x-matroska",
-  },
+import { gamanStatic } from "gaman/static";
+import gaman from "gaman"
+
+gaman.serv({
+  integrations: [
+    gamanStatic({
+      path: "assets",
+      rewriteRequestPath: (path) => path.replace(/^\/static/, ""),
+      fallbackToIndexHTML: true,
+      mimes: {
+        ".webmanifest": "application/manifest+json",
+      },
+    }),
+  ],
 });
 ```
 
 ---
 
-## FAQ
+##  Notes
 
-### **Q: What is the default directory for static files?**
-
-The default directory is `public`.
-
-### **Q: Can I serve files from a custom directory?**
-
-Yes, specify the custom directory using the `path` option:
-
-```ts
-staticGaman({ path: "static" });
-```
-
-### **Q: How do I handle unsupported MIME types?**
-
-Add the required MIME types using the `newMimeTypes` option:
-
-```ts
-newMimeTypes: { ".xyz": "application/xyz" }
-```
-
----
-
-Effortlessly serve static files in your GamanJS projects with @gaman/static!
+- GamanJS logger is disabled automatically when static files are served to avoid duplicated logs.
+- `.br` and `.gz` files will be served automatically if the browser supports `Accept-Encoding`.

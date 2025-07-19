@@ -4,19 +4,9 @@ CORS Middleware for Gaman. Implements Cross-Origin Resource Sharing (CORS) with 
 
 ## Features
 
-- Easy setup for Cross-Origin Resource Sharing (CORS).
-- Global or route-specific middleware support.
-- Handles preflight requests automatically.
-
----
-
-## Installation
-
-Install the package using your favorite package manager:
-
-```bash
-npm install @gaman/cors
-```
+* Easy setup for Cross-Origin Resource Sharing (CORS).
+* Global or route-specific middleware support.
+* Handles preflight requests automatically.
 
 ---
 
@@ -28,7 +18,7 @@ Apply the CORS middleware globally to all routes:
 
 ```ts
 import { defineBlock, Response } from "gaman";
-import { cors } from "@gaman/cors";
+import { cors } from "gaman/cors";
 
 const blocks = defineBlock({
   includes: [cors({ origin: "*" })], // Global CORS middleware
@@ -50,7 +40,7 @@ Apply CORS middleware only to specific routes:
 
 ```ts
 import { defineBlock, Response } from "gaman";
-import { cors } from "@gaman/cors";
+import { cors } from "gaman/cors";
 
 const blocks = defineBlock({
   routes: {
@@ -90,7 +80,7 @@ Customize CORS behavior using these options:
 
 ```ts
 import { defineBlock, Response } from "gaman";
-import { cors } from "@gaman/cors";
+import { cors } from "gaman/cors";
 
 const blocks = defineBlock({
   includes: [
@@ -115,7 +105,7 @@ export default blocks;
 
 ```ts
 import { defineBlock, Response } from "gaman";
-import { cors } from "@gaman/cors";
+import { cors } from "gaman/cors";
 
 const blocks = defineBlock({
   includes: [
@@ -142,8 +132,8 @@ export default blocks;
 
 ## Tips
 
-- Use `origin` with a list of domains to restrict access to specific origins.
-- Set `maxAge` to improve performance by reducing preflight requests.
+* Use `origin` with a list of domains to restrict access to specific origins.
+* Set `maxAge` to improve performance by reducing preflight requests.
 
 ---
 

@@ -8,10 +8,10 @@ A Child Block is a regular modular Block defined inside a parent Block using the
 
 ### Key Benefits:
 
-* **Modular Hierarchy**: Break down large blocks into well-organized sub-blocks.
-* **Reusability**: Child Blocks can be separated into their own files and imported.
-* **Scoped Routing**: Children operate only within their parent Block’s scope.
-* **Preserved Middleware and Priority**: Children can have their own middleware, error handler, and notFound handler.
+- **Modular Hierarchy**: Break down large blocks into well-organized sub-blocks.
+- **Reusability**: Child Blocks can be separated into their own files and imported.
+- **Scoped Routing**: Children operate only within their parent Block’s scope.
+- **Preserved Middleware and Priority**: Children can have their own middleware, error handler, and notFound handler.
 
 ---
 
@@ -53,8 +53,8 @@ export default defineBlock({
 
 ### API Access
 
-* `GET /user/profile` → Handled by the parent Block
-* `GET /user/settings/privacy` → Handled by the child Block
+- `GET /user/profile` → Handled by the parent Block
+- `GET /user/settings/privacy` → Handled by the child Block
 
 ---
 
@@ -62,13 +62,13 @@ export default defineBlock({
 
 Child Blocks support the same properties as regular Blocks:
 
-* `path`
-* `routes`
-* `includes`
-* `all`
-* `error`
-* `notFound`
-* `priority`
+- `path`
+- `routes`
+- `includes`
+- `all`
+- `error`
+- `notFound`
+- `priority`
 
 Example:
 
@@ -87,20 +87,20 @@ export default defineBlock({
 
 ## Best Practices
 
-* Use `childrens` to modularize your features:
+- Use `childrens` to modularize your features:
+  - `user.block.ts` → `settings.block.ts`, `preferences.block.ts`
+  - `admin.block.ts` → `dashboard.block.ts`, `logs.block.ts`
 
-  * `user.block.ts` → `settings.block.ts`, `preferences.block.ts`
-  * `admin.block.ts` → `dashboard.block.ts`, `logs.block.ts`
-* Keep each child Block in its own file for maintainability.
-* Avoid deeply nested structures to keep the routing system easy to understand.
-* Use clear path prefixes for each Child Block.
+- Keep each child Block in its own file for maintainability.
+- Avoid deeply nested structures to keep the routing system easy to understand.
+- Use clear path prefixes for each Child Block.
 
 ---
 
 ## Additional Notes
 
-* Child Blocks are mounted in the order they appear in the `childrens` array.
-* `notFound` and `error` handlers remain functional on each Block scope.
-* There's no need to redefine the `domain` on children; they inherit the context from the parent.
+- Child Blocks are mounted in the order they appear in the `childrens` array.
+- `notFound` and `error` handlers remain functional on each Block scope.
+- There's no need to redefine the `domain` on children; they inherit the context from the parent.
 
 For further implementation details, refer to the official GamanJS documentation.

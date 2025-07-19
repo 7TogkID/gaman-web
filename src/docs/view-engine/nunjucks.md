@@ -4,12 +4,14 @@ GamanJS supports multiple view engines for server-side rendering (SSR). One of t
 
 ---
 
-## Installation
+## Usage
 
-To use Nunjucks with GamanJS, install the integration package:
+Nunjucks is now **built-in** to GamanJS, so you no longer need to install a separate package.
 
-```bash
-npm install @gaman/nunjucks
+Import it directly from the core:
+
+```ts
+import { nunjucks } from "gaman/nunjuck";
 ```
 
 ---
@@ -21,27 +23,58 @@ Integrate the Nunjucks view engine in your `main.ts`:
 ```ts
 import mainBlock from "main.block";
 import gaman from "gaman";
-import nunjucks from "@gaman/nunjucks";
+import { nunjucks } from "gaman/nunjuck";
 
 gaman.serv({
   integrations: [
     nunjucks({
-      autoescape: true,
-      watch: true,
+      // You can configure env and extension here
     }),
   ],
   blocks: [mainBlock],
 });
 ```
 
-### Custom View Directory
+---
 
-By default, views are loaded from `src/views`. You can override this by specifying the `viewPath` option:
+## Available Options
+
+These are the available options you can pass to the `nunjucks()` integration:
 
 ```ts
 nunjucks({
-  viewPath: "src/custom-views",
+  viewPath: "src/views",
+  extension: ".njk",
+  env: (env) => {
+    env.addFilter("uppercase", str => str.toUpperCase());
+    env.addGlobal("appName", "GamanJS");
+  }
 });
+```
+
+### `viewPath`
+
+Path to your views directory. Default: `src/views`
+
+### `extension`
+
+File extension for your templates. Default: `.njk`
+
+You can change it if you prefer `.html`, for example:
+
+```ts
+extension: ".html" // will render `index.html`
+```
+
+### `env`
+
+Use this to customize the Nunjucks environment. You can pass a function or an array of functions:
+
+```ts
+env: [
+  env => env.addFilter("upper", str => str.toUpperCase()),
+  env => env.addGlobal("title", "My Site")
+]
 ```
 
 ---
@@ -93,10 +126,12 @@ This will render the `src/views/index.njk` file and inject the `title` variable.
 
 ## Summary
 
-- Nunjucks is supported via `@gaman/nunjucks`.
-- Place templates in `src/views` by default.
-- Use `Response.render(viewName, data)` in route handlers.
-- Customize view root using the `viewPath` option.
+* Nunjucks is now built-in — no need to install `@gaman/nunjucks`.
+* Place templates in `src/views` by default.
+* Use `Response.render(viewName, data)` in route handlers.
+* Customize view root using the `viewPath` option.
+* Add filters/globals with `env()`
+* Change file extension using `extension`
 
 Other view engines such as Pug, Handlebars, etc. may be supported in the future.
 

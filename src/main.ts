@@ -9,7 +9,7 @@ gaman.serv({
       autoescape: true,
       watch: true,
     }),
-    staticGaman(),
+    staticGaman()
   ],
   blocks: [mainBlock],
   server: {

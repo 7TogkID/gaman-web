@@ -10,16 +10,6 @@ Basic Authentication Middleware for Gaman. Provides secure HTTP Basic Authentica
 
 ---
 
-## Installation
-
-Install the package using your favorite package manager:
-
-```bash
-npm install @gaman/basic-auth
-```
-
----
-
 ## Usage
 
 ### 1. **Static Credentials**
@@ -28,7 +18,7 @@ Use a fixed username and password for authentication:
 
 ```ts
 import { defineBlock, Response } from "gaman";
-import { basicAuth } from "@gaman/basic-auth";
+import { basicAuth } from "gaman/basic-auth";
 
 const blocks = defineBlock({
   includes: [
@@ -55,7 +45,7 @@ Use a custom function to validate credentials dynamically:
 
 ```ts
 import { defineBlock, Response } from "gaman";
-import { basicAuth } from "@gaman/basic-auth";
+import { basicAuth } from "gaman/basic-auth";
 
 const blocks = defineBlock({
   includes: [
@@ -95,7 +85,7 @@ export default blocks;
 
 ```ts
 import { defineBlock, Response } from "gaman";
-import { basicAuth } from "@gaman/basic-auth";
+import { basicAuth } from "gaman/basic-auth";
 
 const blocks = defineBlock({
   includes: [
@@ -120,7 +110,7 @@ export default blocks;
 
 ```ts
 import { defineBlock, Response } from "gaman";
-import { basicAuth } from "@gaman/basic-auth";
+import { basicAuth } from "gaman/basic-auth";
 
 const blocks = defineBlock({
   includes: [
@@ -161,4 +151,4 @@ This middleware streamlines adding HTTP Basic Authentication to your GamanJS app
 
 ---
 
-Secure your GamanJS routes effortlessly with @gaman/basic-auth!
+Secure your GamanJS routes effortlessly with gaman/basic-auth!
