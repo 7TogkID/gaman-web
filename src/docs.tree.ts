@@ -8,6 +8,13 @@ const links = [
 
     items: [
       {
+        name: "Introduction",
+        description:
+          "GamanJS is a JavaScript framework focused on backend application development. This framework was born from a hobby of building things that actually got finished (unlike previous projects that never made it to completion 😅).",
+
+        href: "getting-started/introduction",
+      },
+      {
         name: "Quick Start",
         description:
           "GamanJS is a modular and efficient backend framework designed for simplicity and performance. Follow the steps below to quickly get started with your first GamanJS project.",
@@ -49,6 +56,18 @@ const links = [
         href: "guides/middleware",
       },
       {
+        name: "Context",
+        description:
+          "The Context (ctx) object is the heart of GamanJS request handling. It provides access to request data, response utilities, and application state. Every route handler and middleware receives a context object as their first parameter.",
+        href: "guides/context",
+      },
+      {
+        name: "Response",
+        description:
+          "GamanJS provides a flexible Response system for handling HTTP responses. You can return responses using the `Response` class or convenient shortcuts that automatically determine the response type.",
+        href: "guides/response",
+      },
+      {
         name: "Websocket",
         description:
           "The WebSocket for GamanJS provides an easy-to-use interface for handling WebSocket connections.",
@@ -72,6 +91,12 @@ const links = [
         href: "helpers/locals",
       },
       {
+        name: "Session",
+        description:
+          "GamanJS provides a powerful and flexible session management system with multiple storage drivers. Using the ctx.session object, you can easily set, get, check, and delete session data across different storage backends.",
+        href: "helpers/session",
+      },
+      {
         name: "Logger",
         description:
           "The `Logger` utility offers an easy-to-use interface for logging messages at different levels of severity.",
@@ -82,6 +107,12 @@ const links = [
         description:
           "The TextFormat utility provides ANSI escape codes for styling terminal output, such as applying colors, bold, italic, underline, and other text effects. It also includes a format() method for applying styles using Minecraft-style formatting codes.",
         href: "helpers/textformat",
+      },
+      {
+        name: "CLI",
+        description:
+          "GamanJS provides a powerful CLI tool to help you develop, build, and manage your applications efficiently. All commands are prefixed with npx gaman and can be run from your project directory.",
+        href: "helpers/cli",
       },
     ],
   },
@@ -133,16 +164,14 @@ const links = [
         description:
           "The Integration API allows you to extend your application's functionality through a modular integration system. Each integration follows a lifecycle pattern with hooks for different stages of the application's execution.",
         href: "api/integration",
-      }
+      },
     ],
   },
 ];
 
-
 export default defineTree({
-  "/docs/": () => Response.redirect("/docs/getting-started/quick-start"),
+  "/docs/": () => Response.redirect("/docs/getting-started/introduction"),
   "/docs/:category/:name": async (ctx) => {
-
     try {
       const { category, name } = ctx.params;
       const pathName = `${category}/${name}`;

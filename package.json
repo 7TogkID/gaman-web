@@ -15,7 +15,7 @@
   "dependencies": {
     "chokidar": "^3.6.0",
     "fast-glob": "^3.3.3",
-    "gaman": "^0.0.47",
+    "gaman": "^1.0.0",
     "highlight.js": "^11.11.1",
     "marked": "^16.0.0",
     "nunjucks": "^3.2.4"
