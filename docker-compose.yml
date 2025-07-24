@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  nodejs-app:
+    container_name: gaman-docs
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - net
+
+networks:
+  net:
+    external: true
