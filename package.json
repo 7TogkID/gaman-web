@@ -13,9 +13,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@gaman/cli": "^1.0.12",
+    "@gaman/cli": "^1.0.13",
     "@gaman/common": "^1.0.1",
-    "@gaman/core": "^1.0.12",
+    "@gaman/core": "^1.0.13",
     "@gaman/nunjucks": "^1.0.2",
     "@gaman/static": "^1.0.1",
     "@types/node": "^24.1.0",
