@@ -13,7 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@gaman/cli": "^1.0.11",
+    "@gaman/cli": "^1.0.12",
     "@gaman/common": "^1.0.1",
     "@gaman/core": "^1.0.12",
     "@gaman/nunjucks": "^1.0.2",
