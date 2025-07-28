@@ -2,14 +2,6 @@
 
 The `Logger` utility offers an easy-to-use interface for logging messages at different levels of severity.
 
-## Importing Logger
-
-To use the `Logger` utility, import it from the `gaman` package:
-
-```ts
-import { Logger } from "gaman";
-```
-
 ## Available Methods
 
 ### `Logger.info(message: string)`
@@ -61,8 +53,6 @@ Logger.error("Failed to connect to the database.");
 Here’s an example of using the `Logger` utility to track server operations:
 
 ```ts
-import { Logger } from "gaman";
-
 Logger.info("Server is starting...");
 Logger.log("Listening on port 3431.");
 

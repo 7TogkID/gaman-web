@@ -10,6 +10,16 @@ Basic Authentication Middleware for Gaman. Provides secure HTTP Basic Authentica
 
 ---
 
+---
+
+## Installation
+
+you need to install the following packages
+
+```bash
+npm install @gaman/basic-auth
+```
+
 ## Usage
 
 ### 1. **Static Credentials**
@@ -17,24 +27,14 @@ Basic Authentication Middleware for Gaman. Provides secure HTTP Basic Authentica
 Use a fixed username and password for authentication:
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { basicAuth } from "gaman/basic-auth";
-
-const blocks = defineBlock({
+export default defineBlock({
   includes: [
     basicAuth({
       username: "admin",
       password: "password123",
     }),
   ],
-  routes: {
-    "/secure": async (ctx) => {
-      return Response.json({ message: "Access granted!" });
-    },
-  },
 });
-
-export default blocks;
 ```
 
 ---
@@ -44,10 +44,7 @@ export default blocks;
 Use a custom function to validate credentials dynamically:
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { basicAuth } from "gaman/basic-auth";
-
-const blocks = defineBlock({
+export default defineBlock({
   includes: [
     basicAuth({
       verifyAuth: async (username, password, ctx) => {
@@ -55,14 +52,7 @@ const blocks = defineBlock({
       },
     }),
   ],
-  routes: {
-    "/dynamic": async (ctx) => {
-      return Response.json({ message: "Dynamic validation passed!" });
-    },
-  },
 });
-
-export default blocks;
 ```
 
 ---
@@ -84,10 +74,7 @@ export default blocks;
 ### **Custom Realm and Error Message**
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { basicAuth } from "gaman/basic-auth";
-
-const blocks = defineBlock({
+export default defineBlock({
   includes: [
     basicAuth({
       username: "admin",
@@ -96,23 +83,13 @@ const blocks = defineBlock({
       invalidAuthMessage: { error: "Unauthorized access." },
     }),
   ],
-  routes: {
-    "/admin": async (ctx) => {
-      return Response.json({ message: "Welcome to the admin area!" });
-    },
-  },
 });
-
-export default blocks;
 ```
 
 ### **Dynamic Response on Failure**
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { basicAuth } from "gaman/basic-auth";
-
-const blocks = defineBlock({
+export default defineBlock({
   includes: [
     basicAuth({
       username: "admin",
@@ -125,16 +102,7 @@ const blocks = defineBlock({
       },
     }),
   ],
-  routes: {
-    "/fail": async (ctx) => {
-      return Response.json({
-        message: "You won't see this unless authenticated.",
-      });
-    },
-  },
 });
-
-export default blocks;
 ```
 
 ---

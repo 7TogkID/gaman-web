@@ -4,6 +4,16 @@
 
 ---
 
+## Installation
+
+you need to install the following packages
+
+```bash
+npm install @gaman/static
+```
+
+---
+
 ## Features
 
 - Auto-detects MIME types (customizable)
@@ -33,11 +43,8 @@
 ## 🧪 Example
 
 ```ts
-import { gamanStatic } from "gaman/static";
-import gaman from "gaman"
-
-gaman.serv({
-  integrations: [
+defineBootstrap((app) => {
+  app.registerIntegration(
     gamanStatic({
       path: "assets",
       rewriteRequestPath: (path) => path.replace(/^\/static/, ""),
@@ -45,14 +52,14 @@ gaman.serv({
       mimes: {
         ".webmanifest": "application/manifest+json",
       },
-    }),
-  ],
+    })
+  );
 });
 ```
 
 ---
 
-##  Notes
+## Notes
 
 - GamanJS logger is disabled automatically when static files are served to avoid duplicated logs.
 - `.br` and `.gz` files will be served automatically if the browser supports `Accept-Encoding`.

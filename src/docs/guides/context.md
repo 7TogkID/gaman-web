@@ -229,25 +229,6 @@ Manage HTTP cookies with a simple API. See the Cookies documentation for detaile
 
 ---
 
-## Sessions
-
-### `ctx.session`
-
-Manage user sessions with various storage backends. See the Session documentation for detailed usage.
-
-```ts
-(ctx) => {
-  await ctx.session.set("userId", 123);
-  const userId = await ctx.session.get("userId");
-  
-  if (await ctx.session.has("user")) {
-    await ctx.session.delete("user");
-  }
-}
-```
-
----
-
 
 ## Best Practices
 

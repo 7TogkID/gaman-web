@@ -17,21 +17,17 @@ This is especially useful for passing user info, preprocessed data, or any tempo
 ### Block Example with Middleware
 
 ```ts
-import { defineBlock, Response, next } from "gaman";
-
-export default defineBlock({
-  all: (ctx) => {
+export default defineRoutes(() => ({
+  "*": (ctx) => {
     // Simulate user fetched from cookie or elsewhere
     ctx.locals.user = ctx.cookies.get("user").json();
-    return next()
+    return next();
   },
-  routes: {
-    "/user": (ctx) => {
-      const user = ctx.locals.user;
-      return Response.json({ user });
-    },
+  "/user": (ctx) => {
+    const user = ctx.locals.user;
+    return r.json({ user });
   },
-});
+}));
 ```
 
 ---
@@ -43,19 +39,15 @@ To get proper autocomplete and type safety for `ctx.locals`, declare the expecte
 ### `index.d.ts`
 
 ```ts
-declare global {
-  namespace Gaman {
-    interface Locals {
-      example: string;
-      user?: {
-        id: number;
-        name: string;
-      };
-    }
+declare namespace Gaman {
+  interface Locals {
+    example: string;
+    user?: {
+      id: number;
+      name: string;
+    };
   }
 }
-
-export {};
 ```
 
 With the type declared, `ctx.locals.user` will have autocomplete and type checking based on your interface.
@@ -72,10 +64,10 @@ With the type declared, `ctx.locals.user` will have autocomplete and type checki
 
 ## Summary
 
-| Feature     | Description                                |
-|-------------|--------------------------------------------|
+| Feature      | Description                                |
+| ------------ | ------------------------------------------ |
 | `ctx.locals` | Request-scoped storage object for handlers |
-| Typable     | Extendable via `Gaman.Locals` in `d.ts`    |
-| Safe        | Reset every request — no global pollution  |
+| Typable      | Extendable via `Gaman.Locals` in `d.ts`    |
+| Safe         | Reset every request — no global pollution  |
 
 GamanJS’s `locals` feature makes sharing temporary context across a route seamless, clean, and fully typed!

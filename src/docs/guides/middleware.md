@@ -10,31 +10,6 @@ Middleware in GamanJS provides a powerful way to process requests before they re
 
 ## Defining Middleware
 
-### Global Middleware
-
-Global middleware is defined using the `all` property in a Block. It applies to all routes within the Block's path.
-
-#### Example:
-
-```ts
-import { defineBlock, Response, Logger, next } from "gaman";
-
-export default defineBlock({
-  path: "/user",
-  all: (ctx) => {
-    Logger.log("Global middleware triggered");
-    return next();
-  },
-  routes: {
-    "/info": (ctx) => {
-      Response.json({ message: "User Info" });
-    },
-  },
-});
-```
-
----
-
 ### Scoped Middleware
 
 Scoped middleware is defined within the `routes` object. It applies to specific paths and can target all methods or specific HTTP methods.
@@ -44,11 +19,11 @@ Scoped middleware is defined within the `routes` object. It applies to specific 
 Middleware targeting a specific path is defined using `"/*"` at the end of the path.
 
 ```ts
-routes: {
+export default defineRoutes(() => ({
   "/user/*": (ctx) => {
     Logger.log("Middleware for all /user/* routes");
   },
-};
+}));
 ```
 
 #### Method-Specific Middleware
@@ -56,13 +31,13 @@ routes: {
 Middleware can also be scoped to specific HTTP methods within a path.
 
 ```ts
-routes: {
+export default defineRoutes(() => ({
   "/user/*": {
     POST: (ctx) => {
       Logger.log("Middleware for POST requests to /user/*");
     },
   },
-};
+}));
 ```
 
 ---
@@ -74,9 +49,6 @@ Middleware can also be included directly using the `includes` property. This all
 #### Example with Predefined Middleware
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { cors } from "@gaman/cors";
-
 export default defineBlock({
   path: "/api",
   includes: [
@@ -84,11 +56,7 @@ export default defineBlock({
       origin: "*",
     }),
   ],
-  routes: {
-    "/data": (ctx) => {
-      return Response.json({ message: "API Data" });
-    },
-  },
+  routes: [...]
 });
 ```
 
@@ -98,8 +66,6 @@ Create a custom middleware:
 
 ```ts
 // user.middleware.ts
-import { defineMiddleware, next, Logger } from "gaman";
-
 export default defineMiddleware((ctx) => {
   Logger.log("Custom middleware executed");
   return next();
@@ -109,54 +75,40 @@ export default defineMiddleware((ctx) => {
 Use the custom middleware:
 
 ```ts
-import { Response } from "gaman";
-import userMiddleware from "./user.middleware";
-
 export default defineBlock({
   path: "/user",
   includes: [userMiddleware()],
-  routes: {
-    "/profile": (ctx) => {
-      return Response.json({ message: "User Profile" });
-    },
-  },
+  routes: [...]
 });
 ```
 
 ---
 
-## Behavior of Middleware
-
-1. **No Return Behavior**: Middleware that does not return a response (or uses `return;`) will allow the request to proceed to the next handler or middleware.
-
-   ```ts
-   all: (ctx) => {
-     Logger.log("Global middleware executed");
-     return; // Explicitly allow continuation
-   },
-   ```
-
-2. **Short-Circuiting**: Middleware can terminate the request-response cycle by returning a response.
-
-   ```ts
-   "/user/*": {
-     GET: (ctx) => {
-       return Response.json({ message: "Access Denied" }, { status: 403 });
-     },
-   },
-   ```
-
----
-
 ## Example
+
+### Routes
+
+```ts
+export default defineRoutes(() => ({
+  "/user/*": {
+    POST: (ctx) => {
+      Logger.log("POST middleware for /user/*");
+    },
+    GET: (ctx) => {
+      Logger.log("GET middleware for /user/*");
+    },
+  },
+  "/user": {
+    GET: (ctx) => {
+      return Response.json({ message: "User Data" });
+    },
+  },
+}));
+```
 
 ### Block with Middleware
 
 ```ts
-import { defineBlock, Logger, Response } from "gaman";
-import userMiddleware from "./user.middleware";
-import { cors } from "@gaman/cors";
-
 export default defineBlock({
   path: "/api",
   includes: [
@@ -165,27 +117,14 @@ export default defineBlock({
     }),
     userMiddleware(),
   ],
-  routes: {
-    "/user/*": {
-      POST: (ctx) => {
-        Logger.log("POST middleware for /user/*");
-      },
-      GET: (ctx) => {
-        Logger.log("GET middleware for /user/*");
-      },
-    },
-    "/user": {
-      GET: (ctx) => {
-        return Response.json({ message: "User Data" });
-      },
-    },
-  },
+  routes: [userRoutes],
 });
 ```
 
 ### Request Flow
 
 1. A request to `POST /api/user/123` will:
+
    - Trigger the middleware in `includes` (e.g., `cors` and `userMiddleware`).
    - Trigger the `POST` middleware for `/user/*`.
    - Proceed to the route handler if no response is returned by the middleware.
@@ -201,7 +140,7 @@ export default defineBlock({
 
 - **Keep Middleware Lightweight**: Avoid complex logic that might delay the request processing.
 - **Organize Middleware**: Use meaningful path names and group related middleware into Blocks.
-- **Terminate or Continue Clearly**: Explicitly `return;` to make continuation clear and intentional.
+- **Terminate or Continue Clearly**: Explicitly `return next();` to make continuation clear and intentional.
 
 ---
 

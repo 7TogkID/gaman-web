@@ -132,6 +132,88 @@ GAMAN_KEY=gaman_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z
 
 ---
 
+---
+
+### `npx gaman make:block <name>`
+
+Generates a new route block to group related routes.
+
+```bash
+npx gaman make:block user
+```
+
+**Features:**
+
+* Creates a new block file in the designated `blocks/` directory
+* Designed to organize routes in logical modules
+* Prepares reusable block structure
+
+---
+
+### `npx gaman make:routes <name>`
+
+Scaffolds a full route tree file for organizing nested or grouped routes.
+
+```bash
+npx gaman make:routes user
+```
+
+**Features:**
+
+* Automatically generates boilerplate for a route tree
+* Ideal for defining structured API endpoints
+* Works well with blocks and children routes
+
+---
+
+### `npx gaman make:service <name>`
+
+Creates a new service class for reusable business logic.
+
+```bash
+npx gaman make:service user
+```
+
+**Features:**
+
+* Centralizes reusable operations or logic
+* Great for abstracting database, API, or external logic
+* Generates file in `services/` directory
+
+---
+
+### `npx gaman make:integration <name>`
+
+Sets up a new custom integration module (e.g., for third-party services).
+
+```bash
+npx gaman make:integration stripe
+```
+
+**Features:**
+
+* Ideal for integrating external APIs or tools
+* Generated in the `integrations/` directory
+* Comes with basic structure for config and methods
+
+---
+
+### `npx gaman make:middleware <name>`
+
+Generates a new middleware to intercept requests.
+
+```bash
+npx gaman make:middleware auth
+```
+
+**Features:**
+
+* Creates a middleware in the `middleware/` folder
+* Supports asynchronous logic
+* Can be used in block or global context
+
+---
+
 ## Development Workflow
 
 ### Typical Development Process
@@ -166,65 +248,6 @@ npx gaman dev
 
 ---
 
-## Coming Soon
-
-The following commands are planned for future releases:
-
-### Code Generation Commands
-
-```bash
-# Generate new block (route group)
-npx gaman make:block UserBlock
-
-# Generate route tree structure
-npx gaman make:tree ApiTree
-
-# Generate middleware
-npx gaman make:middleware AuthMiddleware
-
-# Generate child routes
-npx gaman make:children PostChildren
-
-# Generate service class
-npx gaman make:service UserService
-
-# Generate custom integration
-npx gaman make:integration CustomIntegration
-```
-
-### Database Commands
-
-```bash
-# Run database seeders
-npx gaman seed
-
-# Run specific seeder
-npx gaman seed --class=UserSeeder
-```
-
----
-
-## Command Options
-
-### Global Options
-
-Most commands will support common options (coming in future versions):
-
-```bash
-# Specify custom port for dev server
-npx gaman dev --port=4000
-
-# Set environment
-npx gaman dev --env=staging
-
-# Enable verbose logging
-npx gaman build --verbose
-
-# Set custom config file
-npx gaman start --config=custom.config.js
-```
-
----
 
 ## Troubleshooting
 

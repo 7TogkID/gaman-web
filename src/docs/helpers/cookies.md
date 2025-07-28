@@ -12,7 +12,7 @@ The `ctx.cookies` utility is accessible in any handler or middleware and support
 (ctx) => {
   ctx.cookies.set("theme", "dark");
   const theme = ctx.cookies.get("theme").value;
-}
+};
 ```
 
 ---
@@ -38,20 +38,20 @@ Sets a cookie on the client.
     secure: true,
     sameSite: "strict",
   });
-}
+};
 ```
 
 ### Available Options (`GamanCookieSetOptions`):
 
-| Option      | Type     | Description                                         |
-|-------------|----------|-----------------------------------------------------|
-| `httpOnly`  | boolean  | Prevent client-side JS access to the cookie.       |
-| `secure`    | boolean  | Cookie is only sent over HTTPS.                    |
-| `maxAge`    | number   | Max age in seconds before the cookie expires.      |
-| `expires`   | Date     | Alternative to `maxAge`, for exact expiration time.|
-| `path`      | string   | URL path the cookie is valid for.                  |
-| `sameSite`  | string   | "lax", "strict", or "none".                        |
-| `domain`    | string   | The domain the cookie is available to.             |
+| Option     | Type    | Description                                         |
+| ---------- | ------- | --------------------------------------------------- |
+| `httpOnly` | boolean | Prevent client-side JS access to the cookie.        |
+| `secure`   | boolean | Cookie is only sent over HTTPS.                     |
+| `maxAge`   | number  | Max age in seconds before the cookie expires.       |
+| `expires`  | Date    | Alternative to `maxAge`, for exact expiration time. |
+| `path`     | string  | URL path the cookie is valid for.                   |
+| `sameSite` | string  | "lax", "strict", or "none".                         |
+| `domain`   | string  | The domain the cookie is available to.              |
 
 ---
 
@@ -73,7 +73,7 @@ Returns an object with fluent methods to convert the value:
   const raw = ctx.cookies.get("token").value;
   const tokenAsNumber = ctx.cookies.get("token").number();
   const user = ctx.cookies.get("user").json();
-}
+};
 ```
 
 ---
@@ -89,7 +89,7 @@ Checks if a cookie with the given key exists.
   if (ctx.cookies.has("token")) {
     // token is present
   }
-}
+};
 ```
 
 ---
@@ -103,7 +103,7 @@ Deletes a cookie by setting its expiration to the past.
 ```ts
 (ctx) => {
   ctx.cookies.delete("token");
-}
+};
 ```
 
 ---
@@ -116,9 +116,9 @@ If you store an object using `ctx.cookies.set`, it will be automatically seriali
 (ctx) => {
   ctx.cookies.set("user", { id: 1, name: "Angga" });
 
-  const user = ctx.cookies.get("user").json(); 
+  const user = ctx.cookies.get("user").json();
   // => { id: 1, name: "Angga" }
-}
+};
 ```
 
 ---
@@ -126,27 +126,22 @@ If you store an object using `ctx.cookies.set`, it will be automatically seriali
 ## Example Workflow
 
 ```ts
-import { defineBlock } from "gaman";
-
-export default defineBlock({
-  path: "/",
-  routes: {
-    "/set": (ctx) => {
-      ctx.cookies.set("mode", "dark", { httpOnly: true });
-      return Response.json({ status: "cookie set" });
-    },
-    "/check": (ctx) => {
-      if (ctx.cookies.has("mode")) {
-        return Response.json({ mode: ctx.cookies.get("mode").value });
-      }
-      return Response.json({ mode: "not set" });
-    },
-    "/delete": (ctx) => {
-      ctx.cookies.delete("mode");
-      return Response.json({ status: "cookie deleted" });
-    },
+export default defineRoutes(() => ({
+  "/set": (ctx) => {
+    ctx.cookies.set("mode", "dark", { httpOnly: true });
+    return r.json({ status: "cookie set" });
   },
-});
+  "/check": (ctx) => {
+    if (ctx.cookies.has("mode")) {
+      return r.json({ mode: ctx.cookies.get("mode").value });
+    }
+    return r.json({ mode: "not set" });
+  },
+  "/delete": (ctx) => {
+    ctx.cookies.delete("mode");
+    return r.json({ status: "cookie deleted" });
+  },
+}));
 ```
 
 ---

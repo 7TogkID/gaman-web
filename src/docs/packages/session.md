@@ -12,10 +12,20 @@ The `ctx.session` utility is accessible in any handler or middleware and support
 (ctx) => {
   await ctx.session.set("userId", 123);
   const userId = await ctx.session.get("userId");
-}
+};
 ```
 
 ---
+
+---
+
+## Installation
+
+you need to install the following packages
+
+```bash
+npm install @gaman/session
+```
 
 ## API Reference
 
@@ -33,7 +43,7 @@ Stores a value in the session.
   await ctx.session.set("user", { id: 1, name: "Angga" });
   await ctx.session.set("token", "abc123");
   await ctx.session.set("preferences", { theme: "dark", lang: "en" });
-}
+};
 ```
 
 ---
@@ -50,12 +60,12 @@ Returns the stored value or `null` if the key doesn't exist.
 (ctx) => {
   const user = await ctx.session.get("user");
   const token = await ctx.session.get("token");
-  
+
   if (user) {
     // user data exists
     console.log(user.name);
   }
-}
+};
 ```
 
 ---
@@ -73,7 +83,7 @@ Returns `true` if the key exists, `false` otherwise.
   if (await ctx.session.has("user")) {
     // user session exists
   }
-}
+};
 ```
 
 ---
@@ -88,7 +98,7 @@ Deletes a session key and its value.
 (ctx) => {
   await ctx.session.delete("token");
   await ctx.session.delete("user");
-}
+};
 ```
 
 ---
@@ -101,7 +111,7 @@ To use sessions in your GamanJS application, you need to import and configure th
 import { session } from "gaman/session";
 
 gaman.serve({
-  integrations: [session()]
+  integrations: [session()],
 });
 ```
 
@@ -119,12 +129,12 @@ Stores session data in encrypted cookies. Perfect for stateless applications.
 gaman.serve({
   integrations: [
     session({
-      driver: { type: 'cookies' },
+      driver: { type: "cookies" },
       secret: "your-secret-key",
       maxAge: 86400, // 1 day
-      secure: true
-    })
-  ]
+      secure: true,
+    }),
+  ],
 });
 ```
 
@@ -140,11 +150,11 @@ Stores session data in server memory. Fast but not persistent across restarts.
 gaman.serve({
   integrations: [
     session({
-      driver: { type: 'memory' },
+      driver: { type: "memory" },
       secret: "your-secret-key",
-      maxAge: 3600 // 1 hour
-    })
-  ]
+      maxAge: 3600, // 1 hour
+    }),
+  ],
 });
 ```
 
@@ -160,14 +170,14 @@ Stores session data in local files. Persistent across restarts but not suitable 
 gaman.serve({
   integrations: [
     session({
-      driver: { 
-        type: 'file',
-        dir: './sessions' // Optional: custom directory
+      driver: {
+        type: "file",
+        dir: "./sessions", // Optional: custom directory
       },
       secret: "your-secret-key",
-      maxAge: 86400
-    })
-  ]
+      maxAge: 86400,
+    }),
+  ],
 });
 ```
 
@@ -180,6 +190,7 @@ gaman.serve({
 Stores session data in Redis. Excellent for production and multi-server deployments.
 
 **Installation required:**
+
 ```bash
 npm install redis
 ```
@@ -188,14 +199,14 @@ npm install redis
 gaman.serve({
   integrations: [
     session({
-      driver: { 
-        type: 'redis',
-        url: 'redis://localhost:6379' // Optional: custom Redis URL
+      driver: {
+        type: "redis",
+        url: "redis://localhost:6379", // Optional: custom Redis URL
       },
       secret: "your-secret-key",
-      maxAge: 86400
-    })
-  ]
+      maxAge: 86400,
+    }),
+  ],
 });
 ```
 
@@ -208,6 +219,7 @@ gaman.serve({
 Stores session data in SQLite database. Persistent and suitable for single-server deployments.
 
 **Installation required:**
+
 ```bash
 npm install sqlite3 sqlite
 ```
@@ -216,14 +228,14 @@ npm install sqlite3 sqlite
 gaman.serve({
   integrations: [
     session({
-      driver: { 
-        type: 'sql',
-        file: 'sessions.db' // Optional: custom database file
+      driver: {
+        type: "sql",
+        file: "sessions.db", // Optional: custom database file
       },
       secret: "your-secret-key",
-      maxAge: 86400
-    })
-  ]
+      maxAge: 86400,
+    }),
+  ],
 });
 ```
 
@@ -236,6 +248,7 @@ gaman.serve({
 Stores session data in MongoDB. Great for applications already using MongoDB.
 
 **Installation required:**
+
 ```bash
 npm install mongodb
 ```
@@ -244,16 +257,16 @@ npm install mongodb
 gaman.serve({
   integrations: [
     session({
-      driver: { 
-        type: 'mongodb',
-        dbName: 'myapp',
-        uri: 'mongodb://localhost:27017', // Optional: custom MongoDB URI
-        collection: 'sessions' // Optional: custom collection name
+      driver: {
+        type: "mongodb",
+        dbName: "myapp",
+        uri: "mongodb://localhost:27017", // Optional: custom MongoDB URI
+        collection: "sessions", // Optional: custom collection name
       },
       secret: "your-secret-key",
-      maxAge: 86400
-    })
-  ]
+      maxAge: 86400,
+    }),
+  ],
 });
 ```
 
@@ -263,60 +276,55 @@ gaman.serve({
 
 ## Configuration Options
 
-| Option   | Type    | Description                                    | Default                    |
-|----------|---------|------------------------------------------------|----------------------------|
-| `secret` | string  | Secret key for session encryption             | `process.env.GAMAN_KEY`   |
-| `driver` | object  | Storage driver configuration                   | `{ type: 'cookies' }`     |
-| `maxAge` | number  | Session lifetime in seconds                    | `86400` (1 day)           |
-| `secure` | boolean | Require HTTPS for session cookies             | `true`                     |
+| Option   | Type    | Description                       | Default                 |
+| -------- | ------- | --------------------------------- | ----------------------- |
+| `secret` | string  | Secret key for session encryption | `process.env.GAMAN_KEY` |
+| `driver` | object  | Storage driver configuration      | `{ type: 'cookies' }`   |
+| `maxAge` | number  | Session lifetime in seconds       | `86400` (1 day)         |
+| `secure` | boolean | Require HTTPS for session cookies | `true`                  |
 
 ---
 
 ## Example Workflow
 
 ```ts
-import { defineBlock } from "gaman";
+export default defineRoutes(() => ({
+  "/login": async (ctx) => {
+    // Simulate login
+    const user = { id: 1, name: "Angga", email: "angga@example.com" };
 
-export default defineBlock({
-  path: "/auth",
-  routes: {
-    "/login": async (ctx) => {
-      // Simulate login
-      const user = { id: 1, name: "Angga", email: "angga@example.com" };
-      
-      await ctx.session.set("user", user);
-      await ctx.session.set("isAuthenticated", true);
-      
-      return Response.json({ status: "logged in", user });
-    },
-    
-    "/profile": async (ctx) => {
-      if (await ctx.session.has("isAuthenticated")) {
-        const user = await ctx.session.get("user");
-        return Response.json({ user });
-      }
-      
-      return Response.json({ error: "Not authenticated" }, { status: 401 });
-    },
-    
-    "/logout": async (ctx) => {
-      await ctx.session.delete("user");
-      await ctx.session.delete("isAuthenticated");
-      
-      return Response.json({ status: "logged out" });
-    },
-    
-    "/check": async (ctx) => {
-      const hasUser = await ctx.session.has("user");
-      const isAuth = await ctx.session.get("isAuthenticated");
-      
-      return Response.json({ 
-        hasUser, 
-        isAuthenticated: !!isAuth 
-      });
+    await ctx.session.set("user", user);
+    await ctx.session.set("isAuthenticated", true);
+
+    return Response.json({ status: "logged in", user });
+  },
+
+  "/profile": async (ctx) => {
+    if (await ctx.session.has("isAuthenticated")) {
+      const user = await ctx.session.get("user");
+      return Response.json({ user });
     }
-  }
-});
+
+    return Response.json({ error: "Not authenticated" }, { status: 401 });
+  },
+
+  "/logout": async (ctx) => {
+    await ctx.session.delete("user");
+    await ctx.session.delete("isAuthenticated");
+
+    return Response.json({ status: "logged out" });
+  },
+
+  "/check": async (ctx) => {
+    const hasUser = await ctx.session.has("user");
+    const isAuth = await ctx.session.get("isAuthenticated");
+
+    return Response.json({
+      hasUser,
+      isAuthenticated: !!isAuth,
+    });
+  },
+}));
 ```
 
 ---
@@ -335,7 +343,7 @@ export default defineBlock({
 ## Driver Selection Guide
 
 - **Cookies**: Small data, stateless apps, simple deployments
-- **Memory**: Development, testing, single-server with temporary sessions  
+- **Memory**: Development, testing, single-server with temporary sessions
 - **File**: Single-server with persistent sessions, development
 - **Redis**: Production, multi-server, high performance
 - **SQL**: Single-server with SQL needs, persistent sessions

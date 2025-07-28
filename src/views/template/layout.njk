@@ -37,6 +37,10 @@
     <!-- Highlight.js theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
+
   </head>
 
   <body
@@ -89,7 +93,6 @@
           if (!code) 
             return;
           
-  
           navigator
             .clipboard
             .writeText(code.innerText)
@@ -135,6 +138,25 @@
       color: white;
       background-color: #374151;
       /* hover: bg-gray-700 */
+    }
+
+    /* Markdown-style table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 1.5rem;
+    }
+
+    td,
+    th {
+      border: 1px solid #444;
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
+
+    thead {
+      background-color: #2d2d2d;
     }
   </style>
 

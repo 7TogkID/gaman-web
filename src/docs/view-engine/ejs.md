@@ -4,34 +4,27 @@ GamanJS also supports **EJS (Embedded JavaScript Templates)** as one of its view
 
 ---
 
-## Usage
+## Installation
 
-EJS is now **built-in** to GamanJS, so you no longer need to install a separate package.
+you need to install the following packages
 
-Import it directly from the core:
-
-```ts
-import { ejs } from "gaman/ejs";
+```bash
+npm install @gaman/ejs
 ```
 
 ---
 
 ## Integration
 
-Integrate the EJS view engine in your `main.ts`:
+Integrate the EJS view engine in your `index.ts`:
 
 ```ts
-import mainBlock from "main.block";
-import gaman from "gaman";
-import { ejs } from "gaman/ejs";
-
-gaman.serv({
-  integrations: [
+defineBootstrap((app) => {
+  app.registerIntegration(
     ejs({
       cache: false,
-    }),
-  ],
-  blocks: [mainBlock],
+    })
+  );
 });
 ```
 
@@ -73,19 +66,16 @@ src/
 
 ## Rendering a View
 
-Inside a Block, render views using `Response.render()`:
+Inside a Routes, render views using `r.render()`:
 
 ```ts
-export default defineBlock({
-  path: "/",
-  routes: {
-    "/": () => {
-      return Response.render("index", {
-        title: "GamanJS | Web Application Framework",
-      });
-    },
+export default defineRoutes(() => ({
+  "/": () => {
+    return r.render("index", {
+      title: "GamanJS | Web Application Framework",
+    });
   },
-});
+}));
 ```
 
 This will render the `src/views/index.ejs` file with the provided `title` variable.
@@ -94,10 +84,9 @@ This will render the `src/views/index.ejs` file with the provided `title` variab
 
 ## Summary
 
-* EJS is built-in — no need to install `@gaman/ejs`.
-* Views are located in `src/views` by default.
-* Render templates using `Response.render(viewName, data)`.
-* Customize the view path with the `viewPath` option.
+- Views are located in `src/views` by default.
+- Render templates using `Response.render(viewName, data)`.
+- Customize the view path with the `viewPath` option.
 
 Other view engines such as **Pug**, **Handlebars**, etc. may be supported in the future.
 

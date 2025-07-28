@@ -4,11 +4,19 @@ CORS Middleware for Gaman. Implements Cross-Origin Resource Sharing (CORS) with 
 
 ## Features
 
-* Easy setup for Cross-Origin Resource Sharing (CORS).
-* Global or route-specific middleware support.
-* Handles preflight requests automatically.
+- Easy setup for Cross-Origin Resource Sharing (CORS).
+- Global or route-specific middleware support.
+- Handles preflight requests automatically.
 
 ---
+
+## Installation
+
+you need to install the following packages
+
+```bash
+npm install @gaman/cors
+```
 
 ## Usage
 
@@ -17,19 +25,9 @@ CORS Middleware for Gaman. Implements Cross-Origin Resource Sharing (CORS) with 
 Apply the CORS middleware globally to all routes:
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { cors } from "gaman/cors";
-
-const blocks = defineBlock({
+export default defineBlock({
   includes: [cors({ origin: "*" })], // Global CORS middleware
-  routes: {
-    "/": async (ctx) => {
-      return Response.json({ message: "Global CORS applied!" });
-    },
-  },
 });
-
-export default blocks;
 ```
 
 ---
@@ -39,22 +37,15 @@ export default blocks;
 Apply CORS middleware only to specific routes:
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { cors } from "gaman/cors";
-
-const blocks = defineBlock({
-  routes: {
-    "/public": async (ctx) => {
-      return Response.json({ message: "No CORS restrictions here!" });
-    },
-    "/private/*": cors({ origin: ["https://example.com"] }), // Specific middleware
-    "/private/data": async (ctx) => {
-      return Response.json({ message: "Restricted to example.com" });
-    },
+export default defineRoutes(() => ({
+  "/public": async (ctx) => {
+    return Response.json({ message: "No CORS restrictions here!" });
   },
-});
-
-export default blocks;
+  "/private/*": cors({ origin: ["https://example.com"] }), // Specific middleware
+  "/private/data": async (ctx) => {
+    return Response.json({ message: "Restricted to example.com" });
+  },
+}));
 ```
 
 ---
@@ -79,24 +70,14 @@ Customize CORS behavior using these options:
 ### **CORS with Credentials**
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { cors } from "gaman/cors";
-
-const blocks = defineBlock({
+export default defineBlock({
   includes: [
     cors({
       origin: "https://mywebsite.com",
       credentials: true,
     }),
   ],
-  routes: {
-    "/secure": async (ctx) => {
-      return Response.json({ message: "CORS with credentials enabled!" });
-    },
-  },
 });
-
-export default blocks;
 ```
 
 ---
@@ -104,10 +85,7 @@ export default blocks;
 ### **Custom Headers and Methods**
 
 ```ts
-import { defineBlock, Response } from "gaman";
-import { cors } from "gaman/cors";
-
-const blocks = defineBlock({
+export default defineBlock({
   includes: [
     cors({
       origin: "*",
@@ -116,24 +94,15 @@ const blocks = defineBlock({
       maxAge: 86400, // Cache for 1 day
     }),
   ],
-  routes: {
-    "/custom": async (ctx) => {
-      return Response.json({
-        message: "CORS with custom headers and methods!",
-      });
-    },
-  },
 });
-
-export default blocks;
 ```
 
 ---
 
 ## Tips
 
-* Use `origin` with a list of domains to restrict access to specific origins.
-* Set `maxAge` to improve performance by reducing preflight requests.
+- Use `origin` with a list of domains to restrict access to specific origins.
+- Set `maxAge` to improve performance by reducing preflight requests.
 
 ---
 

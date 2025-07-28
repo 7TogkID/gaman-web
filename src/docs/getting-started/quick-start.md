@@ -2,97 +2,39 @@
 
 GamanJS is a modular and efficient backend framework designed for simplicity and performance. Follow the steps below to quickly get started with your first GamanJS project.
 
+### Language
+
+GamanJS is specifically designed to work with modern`TypeScript` using the ECMAScript Module (ESM) system. This means all modules must be written using `import` and `export` syntax—CommonJS (`require`, `module.exports`) is not supported. If you're building a project with GamanJS, make sure your environment and codebase are fully ESM-compatible.
+
+### Prerequisites
+
+Please make sure that `Node.js` (version >= 18.x) is installed on your operating system.
+
+---
+
 ## Create a New Project
 
 There are two ways to scaffold a new GamanJS project:
 
 ```bash
-npx create-gaman@latest
+npm create gaman@latest
 ```
 
-This will scaffold a new GamanJS project with the necessary structure.
-
-## Run Your Project
-
-Start your server with:
-
-```bash
-npm run dev
-```
-
-# Project Structure
+### Project Structure
 
 After creating a new project, your file structure will look like this:
 
 ```css
 src/
-├── main.ts
+├── index.ts
 ├── main.block.ts
+├── main.routes.ts
+└── main.services.ts
 ```
 
-# Example Code
-
-Here’s a quick example to get you started: <br>
-`src/main.ts`
-
-```ts
-import mainBlock from "main.block";
-import gaman from "gaman";
-
-gaman.serv({
-  blocks: [mainBlock], // your blocks
-  server: {
-    port: 3431, // optional
-    host: "0.0.0.0", // optional
-  },
-});
-```
-
-`src/main.block.ts`
-
-```ts
-import { defineBlock, Response } from "gaman";
-
-export default defineBlock({
-  path: "/",
-  all: (ctx) => {
-    console.log("middleware ALL");
-  },
-  routes: {
-    "/": (ctx) => {
-      return Response.json({ message: "❤️ Welcome to GamanJS" });
-    },
-    "/article/*": (ctx) => {
-      ctx.locals.userName = "Angga7Togk"; // set data locals
-    },
-    "/article": {
-      POST: [
-        async (ctx) => {
-          const json = await ctx.json();
-          return Response.json(json /**return JSON */, { status: 200 });
-        },
-      ],
-      "/json": {
-        GET: (ctx) => {
-          const userName = ctx.locals.userName;
-
-          // return like Response.json()
-          return {
-            user_name_from_local: userName,
-          };
-        },
-      },
-      "/text": {
-        GET: (ctx) => {
-          const userName = ctx.locals.userName;
-
-          // return like Response.text()
-          return userName;
-        },
-      },
-    },
-  },
-});
-```
-
-Happy coding! ❤️ GamanJS Team
+| File             | description                                             |
+| ---------------- | ------------------------------------------------------- |
+| main.ts          | App entry point. Runs and loads all modules.            |
+| main.block.ts    | Module for registers routes, services, and middleware.. |
+| main.routes.ts   | Defines HTTP routes handler                             |
+| main.services.ts | Contains the business logic.                            |

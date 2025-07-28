@@ -20,6 +20,12 @@ const links = [
           "GamanJS is a modular and efficient backend framework designed for simplicity and performance. Follow the steps below to quickly get started with your first GamanJS project.",
         href: "getting-started/quick-start",
       },
+      {
+        name: "Module",
+        description:
+          "GamanJS uses a modular structure to organize application features cleanly and scalably. Each module consists of **three primary files**:",
+        href: "getting-started/module",
+      },
     ],
   },
   {
@@ -28,26 +34,24 @@ const links = [
       {
         name: "Block",
         description:
-          "Blocks are designed to simplify the development process by consolidating routing.",
+          "The `defineBlock` function in GamanJS is a powerful abstraction for organizing services, routes, middlewares, and dependencies into a cohesive unit. Blocks are reusable, isolated modules that can be composed together to form a full-featured application structure.",
         href: "guides/block",
       },
       {
-        name: "Children",
-        description:
-          "Block Children are an advanced feature in GamanJS that allow you to organize routing hierarchically within a parent Block. Using the `childrens` property, you can embed additional sub-Blocks that operate only within the context of the main Block.",
-        href: "guides/block-children",
+        name: "Service",
+        description: "The `defineService()` function is used to create reusable logic units (services) that can be injected into your application's routes or other services. These services can contain any asynchronous or synchronous logic, such as database queries, business logic, or external API calls.",
+        href: "guides/service"
+      },
+      {
+        name: "Routes",
+        description: "The `Routes` system in GamanJS is a declarative and modular way to define the application's endpoints. It allows developers to structure their route logic using dependency injection and per-path method definitions.",
+        href: "guides/routes"
       },
       {
         name: "Routing",
         description:
           "The GamanJS routing system is designed to be flexible and intuitive, using a tree-like structure to represent routes.",
         href: "guides/routing",
-      },
-      {
-        name: "Tree",
-        description:
-          "The GamanJS routing system is designed to be flexible and intuitive, using a tree-like structure to represent routes.",
-        href: "guides/tree",
       },
       {
         name: "Middleware",
@@ -67,12 +71,6 @@ const links = [
           "GamanJS provides a flexible Response system for handling HTTP responses. You can return responses using the `Response` class or convenient shortcuts that automatically determine the response type.",
         href: "guides/response",
       },
-      {
-        name: "Websocket",
-        description:
-          "The WebSocket for GamanJS provides an easy-to-use interface for handling WebSocket connections.",
-        href: "guides/websocket",
-      },
     ],
   },
   {
@@ -89,12 +87,6 @@ const links = [
         description:
           "GamanJS provides a simple `ctx.locals` object to store and pass data between middlewares and route handlers during a single request lifecycle.",
         href: "helpers/locals",
-      },
-      {
-        name: "Session",
-        description:
-          "GamanJS provides a powerful and flexible session management system with multiple storage drivers. Using the ctx.session object, you can easily set, get, check, and delete session data across different storage backends.",
-        href: "helpers/session",
       },
       {
         name: "Logger",
@@ -130,6 +122,12 @@ const links = [
         description:
           "Basic Authentication Middleware for Gaman. Provides secure HTTP Basic Authentication with flexible configuration options.",
         href: "packages/basic-auth",
+      },
+      {
+        name: "Session",
+        description:
+          "GamanJS provides a powerful and flexible session management system with multiple storage drivers. Using the ctx.session object, you can easily set, get, check, and delete session data across different storage backends.",
+        href: "packages/session",
       },
       {
         name: "Static",

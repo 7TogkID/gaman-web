@@ -4,10 +4,10 @@ The `TextFormat` utility provides ANSI escape codes for styling terminal output,
 
 ## Importing TextFormat
 
-To use `TextFormat`, import it from the `gaman` package:
+To use `TextFormat`, import it from the `@gaman/common` package:
 
 ```ts
-import { TextFormat } from "gaman";
+import { TextFormat } from "@gaman/common/utils/textformat";
 ```
 
 ---

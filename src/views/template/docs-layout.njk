@@ -1,41 +1,46 @@
 {% extends "template/layout.njk" %}
 
 {% block content %}
+  <style>
+    main img {
+      padding: 10px;
+      background-color: rgba(0,0,0,0.5);
+    }
+  </style>
+
   <div class="flex min-h-screen w-full relative">
     <!-- Sidebar -->
     <aside
       id="mobile-sidebar"
       class="w-64 px-6 py-8 pt-24 bg-neutral-900 border-r border-white/10 fixed top-0 left-0 h-screen overflow-y-auto z-10 transform -translate-x-full transition-transform duration-300 md:sticky md:translate-x-0"
     >
-      <nav class="space-y-6 font-medium text-gray-300">
+      <nav class="font-medium text-gray-400" x-data="{ openSections: {} }">
         {% for link in links %}
-          <div>
-            <h3 class="uppercase text-xs tracking-widest text-gray-500 mb-2">{{ link.name }}</h3>
-            <ul class="space-y-1.5 ms-2">
+          <div x-data="{ open: openSections['{{ link.name }}'] ?? true }"  class="mb-4">
+            <button
+        @click="open = !open; openSections['{{ link.name }}'] = open"
+        class="uppercase text-sm  font-bold text-gray-200 mb-2 flex justify-between items-center w-full"
+      >
+              <span>{{ link.name }}</span>
+              <i :class="open ? 'fa fa-chevron-up' : 'fa fa-chevron-down'" class="text-sm"></i>
+            </button>
+            <ul class="space-y-1.5 ms-2" x-show="open" x-transition>
               {% for item in link.items %}
                 {% set isActive = currentPath == item.href %}
                 <li>
-                  {% if isActive %}
-                    <a
-                      href="/docs/{{ item.href }}"
-                      class="block hover:text-purple-400 text-purple-400 font-semibold"
-                    >
-                      {{ item.name }}
-                    </a>
-                  {% else %}
-                    <a
-                      href="/docs/{{ item.href }}"
-                      class="block hover:text-purple-400"
-                    >
-                      {{ item.name }}
-                    </a>
-                  {% endif %}
+                  <a
+              href="/docs/{{ item.href }}"
+              class="block hover:text-purple-400 text-sm {% if isActive %}text-purple-400 font-semibold{% endif %}"
+            >
+                    {{ item.name }}
+                  </a>
                 </li>
               {% endfor %}
             </ul>
           </div>
         {% endfor %}
       </nav>
+
     </aside>
 
     <!-- Main Content -->
@@ -83,5 +88,91 @@
           .toggle("-translate-x-full");
       });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.3/dist/panzoom.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const overlay = document.createElement("div");
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100vw";
+        overlay.style.height = "100vh";
+        overlay.style.backgroundColor = "rgba(0,0,0,1)";
+        overlay.style.display = "flex";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.zIndex = "9999";
+        overlay.style.cursor = "grab";
+        overlay.style.display = "none";
+        overlay.style.overflow = "hidden";
+
+        const zoomContainer = document.createElement("div");
+        zoomContainer.style.maxWidth = "90%";
+        zoomContainer.style.maxHeight = "90%";
+        zoomContainer.style.overflow = "hidden";
+
+        const popupImg = document.createElement("img");
+        popupImg.style.width = "100%";
+        popupImg.style.height = "auto";
+        popupImg.style.borderRadius = "1rem";
+        popupImg.style.boxShadow = "0 0 20px rgba(255,255,255,0.2)";
+        popupImg.style.transformOrigin = "center center";
+        popupImg.setAttribute("id", "popup-img");
+
+        zoomContainer.appendChild(popupImg);
+        overlay.appendChild(zoomContainer);
+        document
+          .body
+          .appendChild(overlay);
+
+        let panzoomInstance;
+
+        function closeOverlay() {
+          overlay.style.display = "none";
+          popupImg.src = "";
+          panzoomInstance
+            ?.reset();
+        }
+
+        // Klik area luar gambar untuk menutup
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) {
+            closeOverlay();
+          }
+        });
+
+        // Tekan ESC untuk menutup
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && overlay.style.display === "flex") {
+            closeOverlay();
+          }
+        });
+
+        // Klik gambar di konten
+        document
+          .querySelectorAll("main img")
+          .forEach((img) => {
+            img.style.cursor = "zoom-in";
+            img.addEventListener("click", () => {
+              popupImg.src = img.src;
+              overlay.style.display = "flex";
+
+              // Inisialisasi Panzoom
+              setTimeout(() => {
+                if (panzoomInstance) 
+                  panzoomInstance.destroy();
+                panzoomInstance = panzoom(zoomContainer, {
+                  maxScale: 5,
+                  minScale: 1,
+                  contain: 'outside'
+                });
+                zoomContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
+              }, 10);
+            });
+          });
+      });
+    </script>
+
   </div>
 {% endblock %}

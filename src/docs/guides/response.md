@@ -1,6 +1,6 @@
 # Response
 
-GamanJS provides a flexible Response system for handling HTTP responses. You can return responses using the `Response` class or convenient shortcuts that automatically determine the response type.
+GamanJS provides a flexible Response system for handling HTTP responses. You can return responses using the `Res` class or convenient shortcuts that automatically determine the response type.
 
 ---
 
@@ -9,10 +9,8 @@ GamanJS provides a flexible Response system for handling HTTP responses. You can
 Import the Response class and use it in your route handlers:
 
 ```ts
-import { Response } from "gaman";
-
 (ctx) => {
-  return Response.json({ message: "Hello World" });
+  return Res.json({ message: "Hello World" });
 }
 ```
 
@@ -20,13 +18,13 @@ import { Response } from "gaman";
 
 ## Response Methods
 
-### `Response.json(data, options?)`
+### `Res.json(data, options?)`
 
 Returns a JSON response with `Content-Type: application/json`.
 
 ```ts
 (ctx) => {
-  return Response.json({ 
+  return Res.json({ 
     user: { id: 1, name: "Angga" },
     status: "success" 
   });
@@ -34,38 +32,38 @@ Returns a JSON response with `Content-Type: application/json`.
 
 // With custom options
 (ctx) => {
-  return Response.json(
+  return Res.json(
     { error: "Not found" },
     { status: 404, headers: { "X-Custom": "value" } }
   );
 }
 ```
 
-### `Response.text(message, options?)`
+### `Res.text(message, options?)`
 
 Returns a plain text response with `Content-Type: text/plain`.
 
 ```ts
 (ctx) => {
-  return Response.text("Hello, World!");
+  return Res.text("Hello, World!");
 }
 
 // With custom status
 (ctx) => {
-  return Response.text(
+  return Res.text(
     "Server Error",
     { status: 500 }
   );
 }
 ```
 
-### `Response.html(body, options?)`
+### `Res.html(body, options?)`
 
 Returns an HTML response with `Content-Type: text/html`.
 
 ```ts
 (ctx) => {
-  return Response.html(`
+  return Res.html(`
     <html>
       <body>
         <h1>Welcome</h1>
@@ -77,7 +75,7 @@ Returns an HTML response with `Content-Type: text/html`.
 
 // With custom headers
 (ctx) => {
-  return Response.html(
+  return Res.html(
     "<h1>Custom Page</h1>",
     { 
       status: 201,
@@ -87,13 +85,13 @@ Returns an HTML response with `Content-Type: text/html`.
 }
 ```
 
-### `Response.render(viewName, data?, options?)`
+### `Res.render(viewName, data?, options?)`
 
 Renders a template using a configured view engine. Requires setting up a view engine integration first.
 
 ```ts
 (ctx) => {
-  return Response.render("home", {
+  return Res.render("home", {
     title: "Welcome",
     user: { name: "Angga" }
   });
@@ -101,7 +99,7 @@ Renders a template using a configured view engine. Requires setting up a view en
 
 // With custom status
 (ctx) => {
-  return Response.render(
+  return Res.render(
     "error",
     { message: "Page not found" },
     { status: 404 }
@@ -109,7 +107,7 @@ Renders a template using a configured view engine. Requires setting up a view en
 }
 ```
 
-### `Response.stream(stream, options?)`
+### `Res.stream(stream, options?)`
 
 Returns a streaming response with `Content-Type: application/octet-stream`.
 
@@ -118,35 +116,35 @@ import { createReadStream } from "fs";
 
 (ctx) => {
   const fileStream = createReadStream("./large-file.pdf");
-  return Response.stream(fileStream);
+  return Res.stream(fileStream);
 }
 
 // With custom content type
 (ctx) => {
   const videoStream = createReadStream("./video.mp4");
-  return Response.stream(videoStream, {
+  return Res.stream(videoStream, {
     headers: { "Content-Type": "video/mp4" }
   });
 }
 ```
 
-### `Response.redirect(location, status?)`
+### `Res.redirect(location, status?)`
 
-Returns a redirect response. Default status is 302 (temporary redirect).
+Returns a redirect Res. Default status is 302 (temporary redirect).
 
 ```ts
 (ctx) => {
-  return Response.redirect("/login");
+  return Res.redirect("/login");
 }
 
 // Permanent redirect (301)
 (ctx) => {
-  return Response.redirect("/new-url", 301);
+  return Res.redirect("/new-url", 301);
 }
 
 // Temporary redirect (302) - explicit
 (ctx) => {
-  return Response.redirect("/dashboard", 302);
+  return Res.redirect("/dashboard", 302);
 }
 ```
 
@@ -158,11 +156,11 @@ GamanJS automatically detects the response type based on what you return:
 
 ### String Responses
 
-Automatically returns `Response.text()` with status 200:
+Automatically returns `Res.text()` with status 200:
 
 ```ts
 (ctx) => {
-  return "Hello, World!"; // → Response.text("Hello, World!")
+  return "Hello, World!"; // → Res.text("Hello, World!")
 }
 
 (ctx) => {
@@ -172,11 +170,11 @@ Automatically returns `Response.text()` with status 200:
 
 ### HTML String Responses
 
-Strings containing HTML tags automatically return `Response.html()`:
+Strings containing HTML tags automatically return `Res.html()`:
 
 ```ts
 (ctx) => {
-  return "<h1>Welcome to My Site</h1>"; // → Response.html(...)
+  return "<h1>Welcome to My Site</h1>"; // → Res.html(...)
 }
 
 (ctx) => {
@@ -191,11 +189,11 @@ Strings containing HTML tags automatically return `Response.html()`:
 
 ### Object Responses
 
-Objects automatically return `Response.json()` with status 200:
+Objects automatically return `Res.json()` with status 200:
 
 ```ts
 (ctx) => {
-  return { message: "Success", data: [1, 2, 3] }; // → Response.json(...)
+  return { message: "Success", data: [1, 2, 3] }; // → Res.json(...)
 }
 
 (ctx) => {
@@ -212,7 +210,7 @@ These shortcuts are equivalent to their explicit counterparts:
 
 // Equivalent to
 (ctx) => {
-  return Response.json({ message: "OK" });
+  return Res.json({ message: "OK" });
 }
 ```
 
@@ -234,10 +232,10 @@ interface IResponseOptions {
 
 ```ts
 // Custom status code
-Response.json({ error: "Not found" }, { status: 404 })
+Res.json({ error: "Not found" }, { status: 404 })
 
 // Custom headers
-Response.text("Hello", { 
+Res.text("Hello", { 
   headers: { 
     "X-Custom-Header": "value",
     "Cache-Control": "no-cache" 
@@ -245,57 +243,11 @@ Response.text("Hello", {
 })
 
 // Multiple options
-Response.html("<h1>Error</h1>", {
+Res.html("<h1>Error</h1>", {
   status: 500,
   statusText: "Internal Server Error",
   headers: { "X-Error": "true" }
 })
-```
-
----
-
-## View Engine Integration
-
-To use `Response.render()`, you need to set up a view engine integration in your main application file:
-
-### Nunjucks Integration
-
-```ts
-import { nunjucks } from "gaman/nunjucks";
-
-gaman.serve({
-  integrations: [nunjucks()]
-});
-```
-
-### EJS Integration
-
-```ts
-import { ejs } from "gaman/ejs";
-
-gaman.serve({
-  integrations: [ejs()]
-});
-```
-
-Once configured, you can render templates:
-
-```ts
-// Using Nunjucks
-(ctx) => {
-  return Response.render("user/profile", {
-    user: { name: "Angga", email: "angga@example.com" },
-    title: "User Profile"
-  });
-}
-
-// Using EJS
-(ctx) => {
-  return Response.render("dashboard", {
-    stats: { users: 100, posts: 250 },
-    currentUser: ctx.locals.user
-  });
-}
 ```
 
 ---
@@ -306,20 +258,20 @@ Once configured, you can render templates:
 
 ```ts
 // Success response
-(ctx) => Response.json({ 
+(ctx) => Res.json({ 
   success: true, 
   data: result,
   timestamp: new Date()
 })
 
 // Error response
-(ctx) => Response.json(
+(ctx) => Res.json(
   { error: "Validation failed", details: errors },
   { status: 400 }
 )
 
 // Paginated response
-(ctx) => Response.json({
+(ctx) => Res.json({
   data: items,
   pagination: { page: 1, limit: 10, total: 100 }
 })
@@ -331,7 +283,7 @@ Once configured, you can render templates:
 // PDF download
 (ctx) => {
   const pdfStream = generatePDF();
-  return Response.stream(pdfStream, {
+  return Res.stream(pdfStream, {
     headers: {
       "Content-Type": "application/pdf",
       "Content-Disposition": "attachment; filename=report.pdf"
@@ -354,15 +306,15 @@ Once configured, you can render templates:
 // Login redirect
 (ctx) => {
   if (!ctx.locals.user) {
-    return Response.redirect("/login");
+    return Res.redirect("/login");
   }
-  return Response.render("dashboard", { user: ctx.locals.user });
+  return Res.render("dashboard", { user: ctx.locals.user });
 }
 
 // Post-login redirect
 (ctx) => {
   await ctx.session.set("user", user);
-  return Response.redirect("/dashboard");
+  return Res.redirect("/dashboard");
 }
 ```
 
@@ -391,7 +343,7 @@ Once configured, you can render templates:
 - Use response shortcuts for simple responses to keep code clean
 - Set appropriate HTTP status codes for different scenarios
 - Include relevant headers for security and caching
-- Use `Response.redirect()` for navigation flows
+- Use `Res.redirect()` for navigation flows
 - Configure view engines when using server-side rendering
 - Handle streaming responses for large files
 - Use consistent JSON response formats for APIs
