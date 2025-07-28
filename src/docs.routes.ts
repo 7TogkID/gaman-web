@@ -1,4 +1,4 @@
-import { defineTree, Response } from "gaman";
+import { defineRoutes } from "@gaman/core/routes";
 import fs from "fs/promises";
 import { marked } from "marked";
 
@@ -167,8 +167,8 @@ const links = [
   },
 ];
 
-export default defineTree({
-  "/docs/": () => Response.redirect("/docs/getting-started/introduction"),
+export default defineRoutes(({}) => ({
+  "/docs/": () => Res.redirect("/docs/getting-started/introduction"),
   "/docs/:category/:name": async (ctx) => {
     try {
       const { category, name } = ctx.params;
@@ -186,7 +186,7 @@ export default defineTree({
       const prev = index > 0 ? flatList[index - 1] : null;
       const next = index < flatList.length - 1 ? flatList[index + 1] : null;
 
-      return Response.render("template/docs-layout", {
+      return Res.render("template/docs-layout", {
         title: item.name,
         description: item.description,
         item,
@@ -199,7 +199,7 @@ export default defineTree({
         footer: false,
       });
     } catch {
-      return Response.text("Not Found", { status: 404 });
+      return Res.text("Not Found", { status: 404 });
     }
   },
-});
+}));
